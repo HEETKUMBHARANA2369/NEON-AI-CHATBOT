@@ -4,6 +4,7 @@ import requests
 import json
 import pyttsx3
 import threading
+import os
 
 base_window = CTk()
 base_window.geometry("1280x720")
@@ -39,7 +40,6 @@ CHAT_HISTORY_FILE = "chat_history.txt"
 def save_chats():
     with open(CHAT_HISTORY_FILE, "w") as file:
         for chat in chat_history:
-            # Extract the content and format it as a string
             role = chat["role"]
             content = chat["content"][0]["text"]
             file.write(f"{role.capitalize()}: {content}\n")
@@ -78,6 +78,7 @@ def text_to_speech():
         tts_switch.configure(text="OFF")
 
 chat_history = []
+
 # Main chat function that will be threaded
 def threaded_chat():
     global chat_history
@@ -90,11 +91,12 @@ def threaded_chat():
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[0].id)
 
-    url = "https://lokiai.vercel.app/api/v1/chat/completions"
-    # api_key = ""
-    # contact Parth sadaria for your api, mentioned below in the README.md
+    url = "https://parthsadaria-lokiai.hf.space/chat/completions"
+    headers = {
+        "Authorization": "USE-YOUR-OWN-API-KEY",
+        "Content-Type": "application/json"
+    }
 
-    # global chat_history
     input_u = user_inp.get()
     if "bye" in input_u or "exit" in input_u:
         chats.configure(state="normal")
@@ -107,21 +109,17 @@ def threaded_chat():
     chat_history.append({"role": "user", "content": [{"type": "text", "text": input_u}]})
     payload = {
         "messages": chat_history,
-        "model": model_selector.get()
+        "model": model_selector.get(),
+        "stream": False
     }
 
-    response = requests.post(
-        url,
-        headers={"Authorization": api_key, "Content-Type": "application/json"},
-        data=json.dumps(payload)
-    )
-
+    response = requests.post(url, headers=headers, json=payload, stream=True)
     response_data = response.json()
+
     if "choices" in response_data and len(response_data["choices"]) > 0:
         answer = response_data["choices"][0]["message"]["content"]
         chats.configure(state="normal")
         user_inp.delete(0,END)
-        # chats.insert(END, f"\nUser: {user_inp.get()}\n")
         chats.insert(END, f"\n🤖: {answer}\n")
         chats.configure(state="disabled")
         engine.say(answer)
@@ -132,7 +130,7 @@ def threaded_chat():
         chats.insert("0.0", "🤖: Error: Could not retrieve a response from the API.\n")
         chats.configure(state="disabled")
 
-# enter key binding
+# Enter key binding
 def enter_key(event):
     start_chat_thread()
 base_window.bind("<Return>",enter_key)
@@ -188,7 +186,7 @@ user_inp.grid(pady=10, padx=10, row=0, column=2, sticky="nsew")
 tts_switch = CTkSwitch(master=frame3, text="TEXT TO SPEECH", command=text_to_speech)
 tts_switch.grid(row=0, column=0, padx=10)
 
-model_list = ["gpt-4o", "gpt-4o-mini", "llama-3.1-405b"]
+model_list = ["gpt-4o", "gpt-4o-mini", "llama-3.1-405b","claude-3-haiku"]
 model_selector = CTkOptionMenu(master=frame3, values=model_list)
 model_selector.grid(row=0, column=1, padx=10, sticky="w")
 
