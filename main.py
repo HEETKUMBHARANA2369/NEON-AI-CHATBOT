@@ -91,7 +91,7 @@ def threaded_chat():
     engine.setProperty('voice', voices[0].id)
 
     url = "https://lokiai.vercel.app/api/v1/chat/completions"
-    api_key = "USE_YOUR_API_kEY"
+    api_key = "HEET-NI-CHEESEWADI-API-KEY"
     #contact Parth sadaria for your api, mentioned below in the README.md
 
     # global chat_history
