@@ -24,7 +24,7 @@ You can install these libraries using `pip`:
 
 ```bash
 pip install customtkinter requests pyttsx3
-
+```
 
 ![image](https://github.com/user-attachments/assets/efafc244-32c4-4f17-85e3-0393804f4948)
 **DARK MODE**
