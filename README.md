@@ -32,3 +32,9 @@ pip install customtkinter requests pyttsx3
 
 ![image](https://github.com/user-attachments/assets/e7dcf625-1563-469a-b540-900a369655cd)
 **LIGHT MODE**
+
+### API PROVIDED BY:
+- **PARTH SADARIA**: https://github.com/Parthsadaria
+### PROJECT HANDLED BY:
+- **HEET KUMBHARANA**: https://github.com/HEETKUMBHARANA2369
+
