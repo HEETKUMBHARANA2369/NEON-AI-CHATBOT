@@ -1,3 +1,4 @@
+## WARNING: Sorry guys due to some reasons our api provider is down, so it won't work, but the UI and custom tkinter's layout is still working and capable of integrating other API's 
 ## AI Chatbot
 
 This is a simple AI chatbot built using the `customtkinter` library in Python. The chatbot can handle various tasks such as providing responses based on user input, offering text-to-speech functionality, and saving and loading previous chat histories.
