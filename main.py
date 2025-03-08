@@ -93,7 +93,7 @@ def threaded_chat():
 
     url = "https://parthsadaria-lokiai.hf.space/chat/completions"
     headers = {
-        "Authorization": "USE-YOUR-OWN-API-KEY",
+        "Authorization": "sigma",
         "Content-Type": "application/json"
     }
 
@@ -186,7 +186,7 @@ user_inp.grid(pady=10, padx=10, row=0, column=2, sticky="nsew")
 tts_switch = CTkSwitch(master=frame3, text="TEXT TO SPEECH", command=text_to_speech)
 tts_switch.grid(row=0, column=0, padx=10)
 
-model_list = ["gpt-4o", "gpt-4o-mini", "llama-3.1-405b","claude-3-haiku"]
+model_list = ["openai", "openai-large", "llama-3.1-405b","claude-3-haiku"]
 model_selector = CTkOptionMenu(master=frame3, values=model_list)
 model_selector.grid(row=0, column=1, padx=10, sticky="w")
 
